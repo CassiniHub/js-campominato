@@ -41,7 +41,7 @@ function campoMinato() {
    }
 
    console.log(maxNumbers);
-   
+
    var pcNumbers   = [];
    var userNumbers = [];
    var score       = 0;
@@ -68,6 +68,8 @@ function campoMinato() {
          
       } else if (pcNumbers.includes(userNumber)) {
          
+         var explosionNumber = userNumber;
+
          break
       } else {
 
@@ -77,7 +79,7 @@ function campoMinato() {
    }
 
    console.log(userNumbers);
-   console.log("Partita terminata", "-", "Punteggio: " + score);
+   console.log("Partita terminata", "-", "Punteggio: " + score, "-", "Explosion number: " + explosionNumber);
 };
 
 campoMinato();
