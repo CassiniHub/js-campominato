@@ -23,9 +23,10 @@
 // * con difficoltà 1 => tra 1 e 80
 // * con difficoltà 2 => tra 1 e 50
 
+// usare switch default valore semplice
 function selectDifficulty(difficulty) {
 
-   var difficulty = prompt("Seleziona un livello di difficoltà compresotra: 0, 1 o 2");
+   var difficulty = prompt("Seleziona un livello di difficoltà compreso tra: 0, 1 o 2");
    var maxValue = 0;
    
    if (difficulty == 0) {
@@ -53,9 +54,7 @@ function pcRamdomNumbers(maxArrLng, maxValueRnd) {
       
       var rndNumber = getRnd(1, maxValueRnd);
 
-      if (pcNumbers.includes(rndNumber)) {
-         
-      } else {
+      if (!pcNumbers.includes(rndNumber)) {
 
          pcNumbers.push(rndNumber);
       }
@@ -79,23 +78,25 @@ function userNumbers(maxValue, arrCompareLng, arrCompareNumbers) {
       var userNumber = parseInt(prompt("Inserisci un numero (Non puoi inserire più volte uno stesso numero):"));
 
       if (userNumbers.includes(userNumber) || userNumber > maxValue){
-         
-      } else if (arrCompareNumbers.includes(userNumber)) {
+
+         continue;
+      }
+      
+      if (arrCompareNumbers.includes(userNumber)) {
 
          userSummary.explosionNumber = userNumber;
 
          break
-      } else {
-
-         userNumbers.push(userNumber);
-         userSummary.score++;
       }
+
+      userNumbers.push(userNumber);
+      userSummary.score++;
    }
 
    return userSummary;
 }
 
-function campoMinato() {
+var funCampoMinato = function campoMinato() {
 
    var maxValue  = selectDifficulty();
    var pcNumbers = pcRamdomNumbers(16, maxValue);
@@ -103,9 +104,11 @@ function campoMinato() {
    
    console.log("Array di numeri pc: " + pcNumbers, "Array di numeri del giocatore: " + summary.userNumbers);
    console.log("Partita terminata", "-", "Punteggio: " + summary.score, "-", "Explosion number: " + summary.explosionNumber);
-}
+};
 
-campoMinato();
+document.getElementById("btn").addEventListener("click", funCampoMinato);
+
+// campoMinato();
 
 
 // ------------------------------------------------
