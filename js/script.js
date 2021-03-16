@@ -26,36 +26,32 @@
 function selectDifficulty(difficulty) {
 
    var difficulty = prompt("Seleziona un livello di difficoltà compresotra: 0, 1 o 2");
-   var lvlDiff    = {
-
-      levelDifficulty: difficulty,
-      maxNumbers: 0,
-   };
+   var maxValue = 0;
    
    if (difficulty == 0) {
       
-      lvlDiff.maxNumbers = 100;
-      return lvlDiff;
+      maxValue = 100;
+      return maxValue;
    } else if (difficulty == 1) {
    
-      lvlDiff.maxNumbers = 80;
-      return lvlDiff;
+      maxValue = 80;
+      return maxValue;
    } else if (difficulty == 2) {
       
-      lvlDiff.maxNumbers = 50;
-      return lvlDiff;
+      maxValue = 50;
+      return maxValue;
    } else {
       alert("Non hai selezionato la difficoltà");
    }
 }
 
-function pcRamdomNumbers(maxLng) {
+function pcRamdomNumbers(maxArrLng, maxValueRnd) {
    
    var pcNumbers = [];
 
-   while (pcNumbers.length < maxLng) {
+   while (pcNumbers.length < maxArrLng) {
       
-      var rndNumber = getRnd(1, lvlDiff.maxNumbers);
+      var rndNumber = getRnd(1, maxValueRnd);
 
       if (pcNumbers.includes(rndNumber)) {
          
@@ -68,7 +64,7 @@ function pcRamdomNumbers(maxLng) {
    return pcNumbers;
 }
 
-function userNumbers() {
+function userNumbers(maxValue, arrCompareLng, arrCompareNumbers) {
    
    var userNumbers = [];
    var score       = 0;
@@ -78,13 +74,13 @@ function userNumbers() {
       explosionNumber: 0
    }
 
-   while (userNumbers.length < (lvlDiff.maxNumbers - pcNumbers.length)) {
+   while (userNumbers.length < (maxValue - arrCompareLng)) {
       
       var userNumber = parseInt(prompt("Inserisci un numero (Non puoi inserire più volte uno stesso numero):"));
 
-      if (userNumbers.includes(userNumber)) {
+      if (userNumbers.includes(userNumber) || userNumber > maxValue){
          
-      } else if (pcNumbers.includes(userNumber)) {
+      } else if (arrCompareNumbers.includes(userNumber)) {
 
          userSummary.explosionNumber = userNumber;
 
@@ -99,18 +95,23 @@ function userNumbers() {
    return userSummary;
 }
 
-
-var lvlDiff     = Object.assign({}, selectDifficulty());
-var pcNumbers   = pcRamdomNumbers(16);
-var userSummary = userNumbers();
-
 function campoMinato() {
+
+   var maxValue  = selectDifficulty();
+   var pcNumbers = pcRamdomNumbers(16, maxValue);
+   var summary   = userNumbers(maxValue, pcNumbers.length, pcNumbers);
    
-   console.log("Partita terminata", "-", "Punteggio: " + userSummary.score, "-", "Explosion number: " + userSummary.explosionNumber);
+   console.log("Array di numeri pc: " + pcNumbers, "Array di numeri del giocatore: " + summary.userNumbers);
+   console.log("Partita terminata", "-", "Punteggio: " + summary.score, "-", "Explosion number: " + summary.explosionNumber);
 }
 
 campoMinato();
 
+
+// ------------------------------------------------
+
+
+// OLD VERSION - ONE FUNCTION VERSION
 // function campoMinato() {
 
 //    console.log(lvlDiff.maxNumbers);
