@@ -26,24 +26,29 @@
 // usare switch default valore semplice
 function selectDifficulty(difficulty) {
 
-   var difficulty = prompt("Seleziona un livello di difficoltà compreso tra: 0, 1 o 2");
+   var difficulty = parseInt(prompt("Seleziona un livello di difficoltà compreso tra: 0, 1 o 2"));
    var maxValue = 0;
-   
-   if (difficulty == 0) {
-      
-      maxValue = 100;
-      return maxValue;
-   } else if (difficulty == 1) {
-   
-      maxValue = 80;
-      return maxValue;
-   } else if (difficulty == 2) {
-      
-      maxValue = 50;
-      return maxValue;
-   } else {
-      alert("Non hai selezionato la difficoltà");
+
+   switch (difficulty) {
+      case 0:
+
+         maxValue = 100;
+         break;
+      case 1:
+
+         maxValue = 80;
+         break;
+      case 2:
+
+         maxValue = 50;
+         break;
+      default:
+
+         difficulty = 0;
+         maxValue = 100;
    }
+   
+   return maxValue;
 }
 
 function pcRamdomNumbers(maxArrLng, maxValueRnd) {
@@ -66,9 +71,7 @@ function pcRamdomNumbers(maxArrLng, maxValueRnd) {
 function userNumbers(maxValue, arrCompareLng, arrCompareNumbers) {
    
    var userNumbers = [];
-   var score       = 0;
    var userSummary = {
-      score: score,
       userNumbers: userNumbers,
       explosionNumber: 0
    }
@@ -90,7 +93,6 @@ function userNumbers(maxValue, arrCompareLng, arrCompareNumbers) {
       }
 
       userNumbers.push(userNumber);
-      userSummary.score++;
    }
 
    return userSummary;
@@ -103,7 +105,7 @@ var funCampoMinato = function campoMinato() {
    var summary   = userNumbers(maxValue, pcNumbers.length, pcNumbers);
    
    console.log("Array di numeri pc: " + pcNumbers, "Array di numeri del giocatore: " + summary.userNumbers);
-   console.log("Partita terminata", "-", "Punteggio: " + summary.score, "-", "Explosion number: " + summary.explosionNumber);
+   console.log("Partita terminata", "-", "Punteggio: " + summary.userNumbers.length, "-", "Explosion number: " + summary.explosionNumber);
 };
 
 document.getElementById("btn").addEventListener("click", funCampoMinato);
