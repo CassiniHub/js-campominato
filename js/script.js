@@ -44,6 +44,7 @@ function selectDifficulty(difficulty) {
          break;
       default:
 
+         console.log("Livello di difficoltà non valido. Difficoltà default selezionata: difficoltà 0.");
          difficulty = 0;
          maxValue = 100;
    }
@@ -78,10 +79,11 @@ function userNumbers(maxValue, arrCompareLng, arrCompareNumbers) {
 
    while (userNumbers.length < (maxValue - arrCompareLng)) {
       
-      var userNumber = parseInt(prompt("Inserisci un numero (Non puoi inserire più volte uno stesso numero):"));
+      var userNumber = parseInt(prompt("Inserisci un numero da 1 a 100 / 80 / 50, a seconda della difficoltà selezionata (Non puoi inserire più volte uno stesso numero):"));
 
-      if (userNumbers.includes(userNumber) || userNumber > maxValue){
+      if (userNumbers.includes(userNumber) || userNumber > maxValue || userNumber < 1){
 
+         console.log("Valore non valido");
          continue;
       }
       
@@ -97,6 +99,7 @@ function userNumbers(maxValue, arrCompareLng, arrCompareNumbers) {
 
    return userSummary;
 }
+
 
 var funCampoMinato = function campoMinato() {
 
